@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Inbarasan A — Developer Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0a; --surface: #111111; --border: #1e1e1e;
+    --accent: #e8ff4a; --accent2: #4affd4; --text: #f0f0f0; --muted: #666; --card: #131313;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; overflow-x: hidden; cursor: none; }
+
+  .cursor { width: 12px; height: 12px; background: var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.15s ease, background 0.2s; transform: translate(-50%, -50%); }
+  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); opacity: 0.5; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1; opacity: 0.4; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  nav.scrolled { border-color: var(--border); background: rgba(10,10,10,0.88); backdrop-filter: blur(14px); }
+  .nav-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.04em; color: var(--text); text-decoration: none; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 140px 48px 80px; position: relative; overflow: hidden; }
+  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(232,255,74,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(232,255,74,0.03) 1px, transparent 1px); background-size: 80px 80px; pointer-events: none; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(232,255,74,0.08); border: 1px solid rgba(232,255,74,0.2); border-radius: 100px; padding: 6px 16px; font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 36px; width: fit-content; animation: fadeUp 0.8s ease both; }
+  .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+  .hero-name { font-size: clamp(64px,10vw,140px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.92; animation: fadeUp 0.8s 0.1s ease both; }
+  .hero-name .italic { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--muted); }
+  .hero-sub { margin-top: 32px; font-size: 18px; color: var(--muted); max-width: 520px; line-height: 1.6; animation: fadeUp 0.8s 0.2s ease both; }
+  .hero-cta { margin-top: 48px; display: flex; gap: 16px; flex-wrap: wrap; animation: fadeUp 0.8s 0.3s ease both; }
+  .btn-primary { background: var(--accent); color: #000; border: none; padding: 14px 32px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; border-radius: 4px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,255,74,0.3); }
+  .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 14px 32px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; border-radius: 4px; text-decoration: none; transition: border-color 0.2s, color 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-stats { position: absolute; right: 48px; bottom: 80px; display: flex; flex-direction: column; gap: 24px; animation: fadeUp 0.8s 0.4s ease both; }
+  .stat { text-align: right; }
+  .stat-num { font-size: 40px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+  .scroll-indicator { position: absolute; bottom: 40px; left: 48px; display: flex; align-items: center; gap: 12px; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; animation: fadeUp 0.8s 0.5s ease both; }
+  .scroll-line { width: 60px; height: 1px; background: var(--muted); position: relative; overflow: hidden; }
+  .scroll-line::after { content: ''; position: absolute; left: -100%; top: 0; width: 100%; height: 100%; background: var(--accent); animation: scrollLine 2s ease infinite; }
+  @keyframes scrollLine { 0%{left:-100%} 100%{left:100%} }
+
+  section { padding: 120px 48px; position: relative; z-index: 2; }
+  .section-label { font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+  .section-label::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
+  .section-title { font-size: clamp(36px,5vw,64px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 64px; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; gap: 24px; }
+  .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.3s; }
+  .project-card:hover { border-color: rgba(232,255,74,0.22); transform: translateY(-3px); box-shadow: 0 24px 64px rgba(0,0,0,0.45); }
+  .project-card:hover::before { opacity: 1; }
+  .project-card.reverse { direction: rtl; }
+  .project-card.reverse > * { direction: ltr; }
+  .project-number { font-family: 'DM Mono', monospace; font-size: 80px; font-weight: 300; color: rgba(255,255,255,0.04); position: absolute; top: 24px; right: 48px; line-height: 1; pointer-events: none; }
+  .project-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .project-type { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; border: 1px solid; }
+  .type-electron { color: #4affd4; border-color: rgba(74,255,212,0.3); background: rgba(74,255,212,0.06); }
+  .type-python   { color: #ff6b4a; border-color: rgba(255,107,74,0.3);  background: rgba(255,107,74,0.06); }
+  .type-desktop  { color: #e8ff4a; border-color: rgba(232,255,74,0.3);  background: rgba(232,255,74,0.06); }
+  .project-year { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+  .project-title { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 14px; }
+  .project-desc { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 24px; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .stack-tag { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); padding: 4px 10px; border: 1px solid var(--border); border-radius: 4px; background: rgba(255,255,255,0.02); transition: color 0.2s, border-color 0.2s; }
+  .stack-tag:hover { color: var(--accent); border-color: rgba(232,255,74,0.3); }
+  .project-links { display: flex; gap: 12px; }
+  .project-link { font-size: 13px; font-weight: 600; color: var(--text); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; }
+  .project-link:hover { border-color: var(--accent); color: var(--accent); }
+  .project-link.primary { background: var(--accent); color: #000; border-color: var(--accent); }
+  .project-link.primary:hover { background: transparent; color: var(--accent); }
+
+  /* ═══════════════ CAROUSEL ═══════════════ */
+  .carousel {
+    position: relative; border-radius: 12px; overflow: hidden;
+    background: #0d0d0d; border: 1px solid rgba(255,255,255,0.07);
+    height: 320px; user-select: none; flex-shrink: 0;
+  }
+  .carousel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(232,255,74,0.4), transparent); z-index: 10; pointer-events: none; }
+
+  .carousel-chrome { position: absolute; top: 0; left: 0; right: 0; height: 30px; background: rgba(18,18,18,0.96); backdrop-filter: blur(4px); display: flex; align-items: center; padding: 0 12px; gap: 6px; z-index: 5; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .chrome-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .chrome-dot.r { background: #ff5f57; } .chrome-dot.y { background: #febc2e; } .chrome-dot.g { background: #28c840; }
+  .chrome-bar { flex: 1; height: 13px; background: rgba(255,255,255,0.04); border-radius: 3px; margin: 0 8px; }
+
+  .carousel-track { display: flex; height: 100%; transition: transform 0.55s cubic-bezier(0.77,0,0.175,1); will-change: transform; }
+  .carousel-slide { min-width: 100%; height: 100%; position: relative; flex-shrink: 0; }
+  .carousel-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; padding-top: 30px; box-sizing: border-box; filter: brightness(0.93) saturate(1.05); transition: filter 0.4s; }
+  .project-card:hover .carousel-slide img { filter: brightness(1.0) saturate(1.1); }
+  .carousel-slide::after { content: ''; position: absolute; inset: 30px 0 0 0; background: radial-gradient(ellipse at center, transparent 50%, rgba(10,10,10,0.4) 100%); pointer-events: none; }
+
+  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; background: rgba(10,10,10,0.8); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 6; color: var(--text); font-size: 14px; line-height: 1; opacity: 0; transition: opacity 0.25s, background 0.2s, border-color 0.2s; }
+  .carousel:hover .carousel-btn { opacity: 1; }
+  .carousel-btn:hover { background: var(--accent); color: #000; border-color: var(--accent); }
+  .carousel-btn.prev { left: 10px; } .carousel-btn.next { right: 10px; }
+
+  .carousel-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 6; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25); cursor: pointer; transition: all 0.3s; border: none; padding: 0; }
+  .dot.active { background: var(--accent); transform: scale(1.35); }
+
+  .carousel-counter { position: absolute; top: 38px; right: 10px; background: rgba(10,10,10,0.8); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 3px 10px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); z-index: 6; pointer-events: none; }
+
+  /* SKILLS */
+  .skills-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 2px; }
+  .skill-item { padding: 32px 24px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); transition: border-color 0.2s, transform 0.2s; }
+  .skill-item:hover { border-color: rgba(232,255,74,0.2); transform: translateY(-2px); }
+  .skill-icon { font-size: 28px; margin-bottom: 14px; }
+  .skill-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .skill-level { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 8px; }
+  .skill-bar { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform-origin: left; animation: barFill 1.5s ease both; }
+  @keyframes barFill { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+  .skill-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-text { font-size: 17px; color: var(--muted); line-height: 1.8; }
+  .about-text p { margin-bottom: 20px; }
+  .about-text strong { color: var(--text); font-weight: 600; }
+  .about-text .highlight { color: var(--accent); font-style: italic; }
+  .about-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 40px; }
+  .about-card-title { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .about-list { list-style: none; }
+  .about-list li { display: flex; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .about-list li:last-child { border-bottom: none; }
+  .about-list li::before { content: '→'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+  /* CONTACT */
+  .contact-section { text-align: center; }
+  .contact-email { font-size: clamp(28px,4vw,56px); font-weight: 800; letter-spacing: -0.04em; color: var(--text); text-decoration: none; display: block; margin: 32px 0; position: relative; }
+  .contact-email::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left; }
+  .contact-email:hover { color: var(--accent); }
+  .contact-email:hover::after { transform: scaleX(1); }
+  .social-links { display: flex; gap: 20px; justify-content: center; margin-top: 48px; flex-wrap: wrap; }
+  .social-link { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 600; transition: all 0.2s; }
+  .social-link:hover { border-color: var(--accent); color: var(--accent); }
+
+  footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* MARQUEE */
+  .marquee-wrap { overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px 0; background: var(--surface); }
+  .marquee-track { display: flex; gap: 48px; width: max-content; animation: marquee 20s linear infinite; }
+  .marquee-track:hover { animation-play-state: paused; }
+  .marquee-item { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; display: flex; align-items: center; gap: 16px; }
+  .marquee-item::after { content: '✦'; color: var(--accent); font-size: 8px; }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; } .nav-links { display: none; }
+    .hero { padding: 120px 24px 80px; } .hero-stats { display: none; }
+    section { padding: 80px 24px; }
+    .project-card { grid-template-columns: 1fr; gap: 28px; padding: 28px; }
+    .project-card.reverse { direction: ltr; }
+    .carousel { height: 220px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Inba<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-tag">Available for opportunities</div>
+  <h1 class="hero-name">Inbarasan<br><span class="italic">A.</span></h1>
+  <p class="hero-sub">Full-stack developer building real production tools — desktop apps, email automation systems, and AI-powered pipelines. Based in Bangalore.</p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">View Projects ↓</a>
+    <a href="https://github.com/inbarasan25y-coder" target="_blank" class="btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/inbarasan-a-686627242/" target="_blank" class="btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">3<span>+</span></div><div class="stat-label">Production Projects</div></div>
+    <div class="stat"><div class="stat-num">500<span>+</span></div><div class="stat-label">Emails/Day Capacity</div></div>
+    <div class="stat"><div class="stat-num">90<span>%</span></div><div class="stat-label">Verification Accuracy</div></div>
+  </div>
+  <div class="scroll-indicator"><div class="scroll-line"></div>Scroll to explore</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">React 18</span><span class="marquee-item">Node.js</span><span class="marquee-item">Electron</span><span class="marquee-item">Python 3</span><span class="marquee-item">SQLite</span><span class="marquee-item">IMAP / SMTP</span><span class="marquee-item">AES-256-GCM</span><span class="marquee-item">Express.js</span><span class="marquee-item">DNS Resolver</span><span class="marquee-item">Threading</span><span class="marquee-item">REST API</span>
+    <span class="marquee-item">React 18</span><span class="marquee-item">Node.js</span><span class="marquee-item">Electron</span><span class="marquee-item">Python 3</span><span class="marquee-item">SQLite</span><span class="marquee-item">IMAP / SMTP</span><span class="marquee-item">AES-256-GCM</span><span class="marquee-item">Express.js</span><span class="marquee-item">DNS Resolver</span><span class="marquee-item">Threading</span><span class="marquee-item">REST API</span>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Work</div>
+  <h2 class="section-title">Selected<br>Projects</h2>
+  <div class="projects-grid">
+
+    <!--
+      PROJECT 1 — MailOS Desktop Email Client
+      ✅ Images: image_1.png | image_2.png | image_3.png
+    -->
+    <div class="project-card reveal">
+      <div class="project-number">01</div>
+      <div>
+        <div class="project-meta">
+          <span class="project-type type-electron">Electron + React</span>
+          <span class="project-type type-desktop">Desktop App</span>
+          <span class="project-year">2025–26</span>
+        </div>
+        <h3 class="project-title">MailOS — Desktop Email Client</h3>
+        <p class="project-desc">Full-stack desktop email client built with the same architecture as VS Code, Slack, and Notion. Multi-account IMAP sync, rich HTML composer, campaign manager, and AES-256-GCM encryption via OS Keychain — all packaged as a Windows installer.</p>
+        <div class="project-stack">
+          <span class="stack-tag">React 18</span><span class="stack-tag">Electron 30</span><span class="stack-tag">Node.js</span><span class="stack-tag">Express</span><span class="stack-tag">SQLite</span><span class="stack-tag">IMAP</span><span class="stack-tag">Nodemailer</span><span class="stack-tag">AES-256-GCM</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/inbarasan25y-coder/mailos-desktop" target="_blank" class="project-link primary">View on GitHub ↗</a>
+        </div>
+      </div>
+      <div class="carousel"
+           data-images='["image_1.png","image_2.png","image_3.png"]'
+           data-interval="3500">
+        <div class="carousel-chrome">
+          <span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span>
+          <div class="chrome-bar"></div>
+        </div>
+        <div class="carousel-track"></div>
+        <button class="carousel-btn prev">&#8592;</button>
+        <button class="carousel-btn next">&#8594;</button>
+        <div class="carousel-dots"></div>
+        <div class="carousel-counter"></div>
+      </div>
+    </div>
+
+    <!--
+      PROJECT 2 — Email Marketing Automation
+      ✅ Images: Sample_of_Automation.PNG | image_4.png | image_9.png
+                 image_10.png | image_11.png | image_12.png | image_13.png
+    -->
+    <div class="project-card reverse reveal">
+      <div class="project-number">02</div>
+      <div>
+        <div class="project-meta">
+          <span class="project-type type-python">Python</span>
+          <span class="project-year">2024–25</span>
+        </div>
+        <h3 class="project-title">Email Marketing Automation</h3>
+        <p class="project-desc">Production bulk email system with 500+ emails/day capacity, 4-level cumulative follow-up threading, 19 rotating HTML font themes, and smart sender auto-blocking — deployed in real B2B campaigns that closed actual deals.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Python 3</span><span class="stack-tag">smtplib / SMTP_SSL</span><span class="stack-tag">threading</span><span class="stack-tag">CSV</span><span class="stack-tag">RegEx</span><span class="stack-tag">HTML/CSS</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/inbarasan25y-coder/email-marketing-automation" target="_blank" class="project-link primary">View on GitHub ↗</a>
+        </div>
+      </div>
+      <div class="carousel"
+           data-images='["Sample_of_Automation.PNG","image_4.png","image_9.png","image_10.png","image_11.png","image_12.png","image_13.png"]'
+           data-interval="3000">
+        <div class="carousel-chrome">
+          <span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span>
+          <div class="chrome-bar"></div>
+        </div>
+        <div class="carousel-track"></div>
+        <button class="carousel-btn prev">&#8592;</button>
+        <button class="carousel-btn next">&#8594;</button>
+        <div class="carousel-dots"></div>
+        <div class="carousel-counter"></div>
+      </div>
+    </div>
+
+    <!--
+      PROJECT 3 — Email Verification Tool v9.0
+      ✅ Images: image_5.png | image_6.png | image_7.png | image_8.png
+    -->
+    <div class="project-card reveal">
+      <div class="project-number">03</div>
+      <div>
+        <div class="project-meta">
+          <span class="project-type type-python">Python</span>
+          <span class="project-year">2025</span>
+        </div>
+        <h3 class="project-title">Email Verification Tool — v9.0</h3>
+        <p class="project-desc">Multi-layer verification engine with 90% accuracy. Detects catch-all domains, 50+ email providers, 30+ security gateways (Mimecast, Proofpoint, Barracuda), and analyzes SPF/DMARC records — same approach used by ZeroBounce and Hunter.io.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Python 3</span><span class="stack-tag">dns.resolver</span><span class="stack-tag">smtplib</span><span class="stack-tag">threading</span><span class="stack-tag">dataclasses</span><span class="stack-tag">RegEx</span><span class="stack-tag">SPF/DMARC</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/inbarasan25y-coder/email-verification-tool" target="_blank" class="project-link primary">View on GitHub ↗</a>
+        </div>
+      </div>
+      <div class="carousel"
+           data-images='["image_5.png","image_6.png","image_7.png","image_8.png"]'
+           data-interval="4000">
+        <div class="carousel-chrome">
+          <span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span>
+          <div class="chrome-bar"></div>
+        </div>
+        <div class="carousel-track"></div>
+        <button class="carousel-btn prev">&#8592;</button>
+        <button class="carousel-btn next">&#8594;</button>
+        <div class="carousel-dots"></div>
+        <div class="carousel-counter"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-section">
+  <div class="section-label">Expertise</div>
+  <h2 class="section-title">Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-item reveal"><div class="skill-icon">⚛️</div><div class="skill-name">React</div><div class="skill-level"><div class="skill-bar" style="width:88%"></div></div><div class="skill-desc">Hooks, state, virtual lists, rich editors, custom components</div></div>
+    <div class="skill-item reveal"><div class="skill-icon">🟢</div><div class="skill-name">Node.js</div><div class="skill-level"><div class="skill-bar" style="width:85%"></div></div><div class="skill-desc">Express REST APIs, IMAP/SMTP, async/await, encryption</div></div>
+    <div class="skill-item reveal"><div class="skill-icon">🖥️</div><div class="skill-name">Electron</div><div class="skill-level"><div class="skill-bar" style="width:82%"></div></div><div class="skill-desc">Desktop app packaging, IPC, OS Keychain, auto-updater</div></div>
+    <div class="skill-item reveal"><div class="skill-icon">🐍</div><div class="skill-name">Python</div><div class="skill-level"><div class="skill-bar" style="width:90%"></div></div><div class="skill-desc">Threading, SMTP, DNS, dataclasses, CSV automation</div></div>
+    <div class="skill-item reveal"><div class="skill-icon">🗄️</div><div class="skill-name">SQLite</div><div class="skill-level"><div class="skill-bar" style="width:80%"></div></div><div class="skill-desc">better-sqlite3, schema design, encrypted storage</div></div>
+    <div class="skill-item reveal"><div class="skill-icon">🔒</div><div class="skill-name">Security</div><div class="skill-level"><div class="skill-bar" style="width:75%"></div></div><div class="skill-desc">AES-256-GCM, safeStorage, SPF/DMARC, SMTP auth</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Background</div>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm a <strong>self-taught full-stack developer</strong> from Bangalore with a B.Sc. in Computer Science. I build real production tools — not tutorial projects.</p>
+      <p>My approach: <span class="highlight">concept to working product, independently.</span> I've built a desktop email client used in live campaigns, a bulk mailer that sent thousands of real emails, and a verification engine that rivals commercial tools.</p>
+      <p>I work fast, learn from real errors, and ship things that actually work in production. I'm looking for a team where I can <strong>grow from self-learning into professional engineering.</strong></p>
+    </div>
+    <div class="about-card reveal">
+      <div class="about-card-title">What I bring</div>
+      <ul class="about-list">
+        <li>3 real production tools — not tutorials</li>
+        <li>Full-stack: Python + Node.js + React + Electron</li>
+        <li>Business outcome focus — tools closed real deals</li>
+        <li>AI-assisted development & prompt engineering</li>
+        <li>Fast self-learner — concept to product solo</li>
+        <li>B.Sc. Computer Science, 2024</li>
+        <li>Based in Bangalore — open to remote</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-label" style="justify-content:center">Contact</div>
+  <h2 class="section-title">Let's work<br><span style="color:var(--muted);font-family:'Instrument Serif',serif;font-style:italic;font-weight:400">together</span></h2>
+  <a href="mailto:inbarasan25y@gmail.com" class="contact-email">inbarasan25y@gmail.com</a>
+  <p style="color:var(--muted);font-size:15px;max-width:400px;margin:0 auto;line-height:1.6">Open to internships, full-time roles, and freelance projects. Let's build something real.</p>
+  <div class="social-links">
+    <a href="https://github.com/inbarasan25y-coder" target="_blank" class="social-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/inbarasan-a-686627242/" target="_blank" class="social-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a href="tel:+919972622062" class="social-link">📞 +91 99726 22062</a>
+    <a href="https://github.com/inbarasan25y-coder?tab=repositories" target="_blank" class="social-link">📂 All Repositories</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Inbarasan A — Bangalore, India</span>
+  <span style="font-family:'DM Mono',monospace">Built with HTML · CSS · JS</span>
+</footer>
+
+<script>
+/* ════════════════════════════════════════════
+   CAROUSEL ENGINE — data-driven, zero dependencies
+════════════════════════════════════════════ */
+function initCarousel(el) {
+  const images   = JSON.parse(el.dataset.images);
+  const interval = parseInt(el.dataset.interval) || 3500;
+  const track    = el.querySelector('.carousel-track');
+  const dotsWrap = el.querySelector('.carousel-dots');
+  const counter  = el.querySelector('.carousel-counter');
+  const btnPrev  = el.querySelector('.carousel-btn.prev');
+  const btnNext  = el.querySelector('.carousel-btn.next');
+
+  let current  = 0;
+  let timer    = null;
+  let startX   = 0;
+
+  // ── Build slides ──────────────────────────
+  images.forEach((src, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'carousel-slide';
+    const img = document.createElement('img');
+    img.src     = src;
+    img.alt     = `Screenshot ${i + 1}`;
+    img.loading = i === 0 ? 'eager' : 'lazy';
+    slide.appendChild(img);
+    track.appendChild(slide);
+  });
+
+  // ── Build dots ────────────────────────────
+  images.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+
+  // ── Update UI ─────────────────────────────
+  function updateUI() {
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dotsWrap.querySelectorAll('.dot').forEach((d, i) =>
+      d.classList.toggle('active', i === current)
+    );
+    counter.textContent = `${current + 1} / ${images.length}`;
+  }
+
+  // ── Navigation ────────────────────────────
+  function goTo(idx) {
+    current = (idx + images.length) % images.length;
+    updateUI();
+    resetTimer();
+  }
+  const next = () => goTo(current + 1);
+  const prev = () => goTo(current - 1);
+
+  // ── Auto-play ─────────────────────────────
+  const startTimer = () => { timer = setInterval(next, interval); };
+  const resetTimer = () => { clearInterval(timer); startTimer(); };
+
+  btnNext.addEventListener('click', next);
+  btnPrev.addEventListener('click', prev);
+
+  // Pause on hover
+  el.addEventListener('mouseenter', () => clearInterval(timer));
+  el.addEventListener('mouseleave',  startTimer);
+
+  // Touch swipe
+  el.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  el.addEventListener('touchend',   e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+  });
+
+  // Keyboard (when focused)
+  el.setAttribute('tabindex', '0');
+  el.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft')  prev();
+  });
+
+  updateUI();
+  startTimer();
+}
+
+document.querySelectorAll('.carousel').forEach(initCarousel);
+
+/* ════════════════════════════════════════════
+   CUSTOM CURSOR
+════════════════════════════════════════════ */
+const cursor     = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+});
+(function animRing() {
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform  = 'translate(-50%,-50%) scale(2)';
+    cursor.style.background = 'transparent';
+    cursor.style.border     = '1.5px solid var(--accent)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.transform  = 'translate(-50%,-50%) scale(1)';
+    cursor.style.background = 'var(--accent)';
+    cursor.style.border     = 'none';
+  });
+});
+
+/* ════════════════════════════════════════════
+   NAV / SCROLL / REVEAL
+════════════════════════════════════════════ */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+</body>
+</html>
