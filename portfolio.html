@@ -18,7 +18,6 @@
   .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); opacity: 0.5; }
   body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1; opacity: 0.4; }
 
-  /* NAV */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
   nav.scrolled { border-color: var(--border); background: rgba(10,10,10,0.88); backdrop-filter: blur(14px); }
   .nav-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.04em; color: var(--text); text-decoration: none; }
@@ -27,7 +26,6 @@
   .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
   .nav-links a:hover { color: var(--text); }
 
-  /* HERO */
   .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 140px 48px 80px; position: relative; overflow: hidden; }
   .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(232,255,74,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(232,255,74,0.03) 1px, transparent 1px); background-size: 80px 80px; pointer-events: none; }
   .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(232,255,74,0.08); border: 1px solid rgba(232,255,74,0.2); border-radius: 100px; padding: 6px 16px; font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 36px; width: fit-content; animation: fadeUp 0.8s ease both; }
@@ -35,7 +33,7 @@
   @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
   .hero-name { font-size: clamp(64px,10vw,140px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.92; animation: fadeUp 0.8s 0.1s ease both; }
   .hero-name .italic { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--muted); }
-  .hero-sub { margin-top: 32px; font-size: 18px; color: var(--muted); max-width: 520px; line-height: 1.6; animation: fadeUp 0.8s 0.2s ease both; }
+  .hero-sub { margin-top: 32px; font-size: 18px; color: var(--muted); max-width: 560px; line-height: 1.6; animation: fadeUp 0.8s 0.2s ease both; }
   .hero-cta { margin-top: 48px; display: flex; gap: 16px; flex-wrap: wrap; animation: fadeUp 0.8s 0.3s ease both; }
   .btn-primary { background: var(--accent); color: #000; border: none; padding: 14px 32px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; border-radius: 4px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 8px; }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,255,74,0.3); }
@@ -56,7 +54,6 @@
   .section-label::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
   .section-title { font-size: clamp(36px,5vw,64px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 64px; }
 
-  /* PROJECTS */
   .projects-grid { display: grid; gap: 24px; }
   .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
   .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.3s; }
@@ -70,6 +67,7 @@
   .type-electron { color: #4affd4; border-color: rgba(74,255,212,0.3); background: rgba(74,255,212,0.06); }
   .type-python   { color: #ff6b4a; border-color: rgba(255,107,74,0.3);  background: rgba(255,107,74,0.06); }
   .type-desktop  { color: #e8ff4a; border-color: rgba(232,255,74,0.3);  background: rgba(232,255,74,0.06); }
+  .type-ml       { color: #bf8aff; border-color: rgba(191,138,255,0.3); background: rgba(191,138,255,0.06); }
   .project-year { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
   .project-title { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 14px; }
   .project-desc { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 24px; }
@@ -82,34 +80,41 @@
   .project-link.primary { background: var(--accent); color: #000; border-color: var(--accent); }
   .project-link.primary:hover { background: transparent; color: var(--accent); }
 
-  /* ═══════════════ CAROUSEL ═══════════════ */
-  .carousel {
-    position: relative; border-radius: 12px; overflow: hidden;
-    background: #0d0d0d; border: 1px solid rgba(255,255,255,0.07);
-    height: 320px; user-select: none; flex-shrink: 0;
-  }
+  /* CAROUSEL */
+  .carousel { position: relative; border-radius: 12px; overflow: hidden; background: #0d0d0d; border: 1px solid rgba(255,255,255,0.07); height: 320px; user-select: none; flex-shrink: 0; }
   .carousel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(232,255,74,0.4), transparent); z-index: 10; pointer-events: none; }
-
   .carousel-chrome { position: absolute; top: 0; left: 0; right: 0; height: 30px; background: rgba(18,18,18,0.96); backdrop-filter: blur(4px); display: flex; align-items: center; padding: 0 12px; gap: 6px; z-index: 5; border-bottom: 1px solid rgba(255,255,255,0.05); }
   .chrome-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .chrome-dot.r { background: #ff5f57; } .chrome-dot.y { background: #febc2e; } .chrome-dot.g { background: #28c840; }
   .chrome-bar { flex: 1; height: 13px; background: rgba(255,255,255,0.04); border-radius: 3px; margin: 0 8px; }
-
   .carousel-track { display: flex; height: 100%; transition: transform 0.55s cubic-bezier(0.77,0,0.175,1); will-change: transform; }
   .carousel-slide { min-width: 100%; height: 100%; position: relative; flex-shrink: 0; }
   .carousel-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; padding-top: 30px; box-sizing: border-box; filter: brightness(0.93) saturate(1.05); transition: filter 0.4s; }
   .project-card:hover .carousel-slide img { filter: brightness(1.0) saturate(1.1); }
   .carousel-slide::after { content: ''; position: absolute; inset: 30px 0 0 0; background: radial-gradient(ellipse at center, transparent 50%, rgba(10,10,10,0.4) 100%); pointer-events: none; }
 
+  /* Code preview panel for scraper projects */
+  .code-preview { background: #0d0d0d; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); height: 320px; position: relative; }
+  .code-preview::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(74,255,212,0.4), transparent); z-index: 10; pointer-events: none; }
+  .code-chrome { height: 30px; background: rgba(18,18,18,0.96); display: flex; align-items: center; padding: 0 12px; gap: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .code-chrome .fname { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-left: 8px; }
+  .code-body { padding: 20px; overflow: hidden; height: calc(100% - 30px); position: relative; }
+  .code-body::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(transparent, #0d0d0d); pointer-events: none; }
+  pre.code-lines { font-family: 'DM Mono', monospace; font-size: 11px; line-height: 1.7; color: #888; white-space: pre; overflow: hidden; }
+  .kw  { color: #c792ea; }
+  .fn  { color: #82aaff; }
+  .st  { color: #c3e88d; }
+  .cm  { color: #546e7a; font-style: italic; }
+  .nm  { color: #f78c6c; }
+  .py  { color: #4affd4; }
+
   .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; background: rgba(10,10,10,0.8); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 6; color: var(--text); font-size: 14px; line-height: 1; opacity: 0; transition: opacity 0.25s, background 0.2s, border-color 0.2s; }
   .carousel:hover .carousel-btn { opacity: 1; }
   .carousel-btn:hover { background: var(--accent); color: #000; border-color: var(--accent); }
   .carousel-btn.prev { left: 10px; } .carousel-btn.next { right: 10px; }
-
   .carousel-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 6; }
   .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25); cursor: pointer; transition: all 0.3s; border: none; padding: 0; }
   .dot.active { background: var(--accent); transform: scale(1.35); }
-
   .carousel-counter { position: absolute; top: 38px; right: 10px; background: rgba(10,10,10,0.8); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 3px 10px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); z-index: 6; pointer-events: none; }
 
   /* SKILLS */
@@ -153,9 +158,8 @@
   .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* MARQUEE */
   .marquee-wrap { overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px 0; background: var(--surface); }
-  .marquee-track { display: flex; gap: 48px; width: max-content; animation: marquee 20s linear infinite; }
+  .marquee-track { display: flex; gap: 48px; width: max-content; animation: marquee 22s linear infinite; }
   .marquee-track:hover { animation-play-state: paused; }
   .marquee-item { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; display: flex; align-items: center; gap: 16px; }
   .marquee-item::after { content: '✦'; color: var(--accent); font-size: 8px; }
@@ -168,6 +172,7 @@
     .project-card { grid-template-columns: 1fr; gap: 28px; padding: 28px; }
     .project-card.reverse { direction: ltr; }
     .carousel { height: 220px; }
+    .code-preview { height: 220px; }
     .about-grid { grid-template-columns: 1fr; gap: 40px; }
     footer { flex-direction: column; gap: 12px; text-align: center; }
   }
@@ -178,7 +183,6 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">Inba<span>.</span></a>
   <ul class="nav-links">
@@ -189,12 +193,11 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-grid"></div>
   <div class="hero-tag">Available for opportunities</div>
   <h1 class="hero-name">Inbarasan<br><span class="italic">A.</span></h1>
-  <p class="hero-sub">Full-stack developer building real production tools — desktop apps, email automation systems, and AI-powered pipelines. Based in Bangalore.</p>
+  <p class="hero-sub">Python & Java developer building real production tools — desktop apps, email automation systems, async scrapers with ML, and AI-powered data pipelines. Based in Bangalore.</p>
   <div class="hero-cta">
     <a href="#projects" class="btn-primary">View Projects ↓</a>
     <a href="https://github.com/inbarasan25y-coder" target="_blank" class="btn-secondary">
@@ -207,31 +210,26 @@
     </a>
   </div>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">3<span>+</span></div><div class="stat-label">Production Projects</div></div>
+    <div class="stat"><div class="stat-num">5<span>+</span></div><div class="stat-label">Production Projects</div></div>
     <div class="stat"><div class="stat-num">500<span>+</span></div><div class="stat-label">Emails/Day Capacity</div></div>
     <div class="stat"><div class="stat-num">90<span>%</span></div><div class="stat-label">Verification Accuracy</div></div>
   </div>
   <div class="scroll-indicator"><div class="scroll-line"></div>Scroll to explore</div>
 </section>
 
-<!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
-    <span class="marquee-item">React 18</span><span class="marquee-item">Node.js</span><span class="marquee-item">Electron</span><span class="marquee-item">Python 3</span><span class="marquee-item">SQLite</span><span class="marquee-item">IMAP / SMTP</span><span class="marquee-item">AES-256-GCM</span><span class="marquee-item">Express.js</span><span class="marquee-item">DNS Resolver</span><span class="marquee-item">Threading</span><span class="marquee-item">REST API</span>
-    <span class="marquee-item">React 18</span><span class="marquee-item">Node.js</span><span class="marquee-item">Electron</span><span class="marquee-item">Python 3</span><span class="marquee-item">SQLite</span><span class="marquee-item">IMAP / SMTP</span><span class="marquee-item">AES-256-GCM</span><span class="marquee-item">Express.js</span><span class="marquee-item">DNS Resolver</span><span class="marquee-item">Threading</span><span class="marquee-item">REST API</span>
+    <span class="marquee-item">React 18</span><span class="marquee-item">Node.js</span><span class="marquee-item">Electron</span><span class="marquee-item">Python 3</span><span class="marquee-item">Java</span><span class="marquee-item">SQLite</span><span class="marquee-item">IMAP / SMTP</span><span class="marquee-item">AES-256-GCM</span><span class="marquee-item">Express.js</span><span class="marquee-item">asyncio · aiohttp</span><span class="marquee-item">Selenium</span><span class="marquee-item">scikit-learn</span><span class="marquee-item">DNS Resolver</span><span class="marquee-item">Threading</span><span class="marquee-item">REST API</span>
+    <span class="marquee-item">React 18</span><span class="marquee-item">Node.js</span><span class="marquee-item">Electron</span><span class="marquee-item">Python 3</span><span class="marquee-item">Java</span><span class="marquee-item">SQLite</span><span class="marquee-item">IMAP / SMTP</span><span class="marquee-item">AES-256-GCM</span><span class="marquee-item">Express.js</span><span class="marquee-item">asyncio · aiohttp</span><span class="marquee-item">Selenium</span><span class="marquee-item">scikit-learn</span><span class="marquee-item">DNS Resolver</span><span class="marquee-item">Threading</span><span class="marquee-item">REST API</span>
   </div>
 </div>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="section-label">Work</div>
   <h2 class="section-title">Selected<br>Projects</h2>
   <div class="projects-grid">
 
-    <!--
-      PROJECT 1 — MailOS Desktop Email Client
-      ✅ Images: image_1.png | image_2.png | image_3.png
-    -->
+    <!-- PROJECT 1 — MailOS -->
     <div class="project-card reveal">
       <div class="project-number">01</div>
       <div>
@@ -249,28 +247,113 @@
           <a href="https://github.com/inbarasan25y-coder/mailos-desktop" target="_blank" class="project-link primary">View on GitHub ↗</a>
         </div>
       </div>
-      <div class="carousel"
-           data-images='["image_1.png","image_2.png","image_3.png"]'
-           data-interval="3500">
-        <div class="carousel-chrome">
-          <span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span>
-          <div class="chrome-bar"></div>
-        </div>
+      <div class="carousel" data-images='["image_1.png","image_2.png","image_3.png"]' data-interval="3500">
+        <div class="carousel-chrome"><span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span><div class="chrome-bar"></div></div>
         <div class="carousel-track"></div>
-        <button class="carousel-btn prev">&#8592;</button>
-        <button class="carousel-btn next">&#8594;</button>
-        <div class="carousel-dots"></div>
-        <div class="carousel-counter"></div>
+        <button class="carousel-btn prev">&#8592;</button><button class="carousel-btn next">&#8594;</button>
+        <div class="carousel-dots"></div><div class="carousel-counter"></div>
       </div>
     </div>
 
-    <!--
-      PROJECT 2 — Email Marketing Automation
-      ✅ Images: Sample_of_Automation.PNG | image_4.png | image_9.png
-                 image_10.png | image_11.png | image_12.png | image_13.png
-    -->
+    <!-- PROJECT 2 — CompleteIntelligentExtractor -->
     <div class="project-card reverse reveal">
       <div class="project-number">02</div>
+      <div>
+        <div class="project-meta">
+          <span class="project-type type-python">Python</span>
+          <span class="project-type type-ml">ML · asyncio</span>
+          <span class="project-year">2024–25</span>
+        </div>
+        <h3 class="project-title">CompleteIntelligentExtractor</h3>
+        <p class="project-desc">Async web scraper with 100-worker concurrency (aiohttp + asyncio), 7 domain extraction methods, RFC-compliant email validation, and scikit-learn GradientBoostingClassifier for ML-based company name detection. Classifies every domain as unique vs common using exact-match pattern sets — preventing false positives like <code style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:12px">x.com</code> matching <code style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:12px">vertix.com</code>.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Python 3</span><span class="stack-tag">aiohttp</span><span class="stack-tag">asyncio</span><span class="stack-tag">BeautifulSoup4</span><span class="stack-tag">scikit-learn</span><span class="stack-tag">Pandas</span><span class="stack-tag">Regex</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/inbarasan25y-coder/Complete-Intelligent-Extractor" target="_blank" class="project-link primary">View on GitHub ↗</a>
+        </div>
+      </div>
+      <!-- Animated code preview panel -->
+      <div class="code-preview">
+        <div class="code-chrome"><span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span><span class="fname">complete_intelligent_extractor.py</span></div>
+        <div class="code-body">
+<pre class="code-lines"><span class="cm"># 100-worker async scraper + ML</span>
+<span class="kw">async def</span> <span class="fn">extract_from_urls_batch</span>(self, urls):
+    semaphore = asyncio.Semaphore(<span class="nm">100</span>)
+    <span class="kw">async with</span> aiohttp.ClientSession() <span class="kw">as</span> session:
+        tasks = [self.fetch_url_async(
+            session, url, semaphore
+        ) <span class="kw">for</span> url <span class="kw">in</span> urls]
+        results = <span class="kw">await</span> asyncio.gather(*tasks)
+
+<span class="cm"># Exact-match domain classifier</span>
+<span class="kw">def</span> <span class="fn">is_exact_common_domain</span>(self, domain, exact_set):
+    <span class="kw">for</span> pattern <span class="kw">in</span> exact_set:
+        <span class="kw">if</span> domain == pattern:        <span class="cm"># exact ✅</span>
+            <span class="kw">return</span> <span class="py">True</span>
+        <span class="kw">if</span> domain.endswith(<span class="st">'.'</span>+pattern): <span class="cm"># subdomain ✅</span>
+            <span class="kw">return</span> <span class="py">True</span>
+    <span class="kw">return</span> <span class="py">False</span>  <span class="cm"># 'x.com' in 'vertix.com' → blocked</span>
+
+<span class="cm"># ML company name detection</span>
+<span class="fn">GradientBoostingClassifier</span>(
+    n_estimators=<span class="nm">100</span>, max_depth=<span class="nm">4</span>
+).fit(X_features, y_labels)</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 — BulletproofScraper -->
+    <div class="project-card reveal">
+      <div class="project-number">03</div>
+      <div>
+        <div class="project-meta">
+          <span class="project-type type-python">Python</span>
+          <span class="project-type type-desktop">Selenium · OCR</span>
+          <span class="project-year">2024</span>
+        </div>
+        <h3 class="project-title">BulletproofScraper</h3>
+        <p class="project-desc">Production web scraper for JavaScript-rendered sites that block simple HTTP scrapers. Launches headless Chrome via Selenium WebDriver, uses smart <code style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:12px">document.readyState</code> detection instead of fixed sleeps, and runs pytesseract OCR on all page images in parallel via <code style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:12px">ThreadPoolExecutor</code>. Deep domain-scoped crawl via urljoin/urlparse.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Python 3</span><span class="stack-tag">Selenium</span><span class="stack-tag">pytesseract</span><span class="stack-tag">Pillow</span><span class="stack-tag">ThreadPoolExecutor</span><span class="stack-tag">BeautifulSoup</span><span class="stack-tag">Pandas</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/inbarasan25y-coder/BulletproofScraper" target="_blank" class="project-link primary">View on GitHub ↗</a>
+        </div>
+      </div>
+      <div class="code-preview">
+        <div class="code-chrome"><span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span><span class="fname">bulletproof_scraper.py</span></div>
+        <div class="code-body">
+<pre class="code-lines"><span class="cm"># Smart wait — no fixed sleep(7)</span>
+<span class="kw">def</span> <span class="fn">wait_for_page</span>(self, timeout=<span class="nm">5</span>):
+    WebDriverWait(self.driver, timeout).until(
+        <span class="kw">lambda</span> d: d.execute_script(
+            <span class="st">"return document.readyState"</span>
+        ) == <span class="st">"complete"</span>
+    )
+
+<span class="cm"># Parallel OCR on all images</span>
+<span class="kw">def</span> <span class="fn">perform_ocr_batch</span>(self, img_urls):
+    <span class="kw">with</span> ThreadPoolExecutor(
+        max_workers=self.max_workers
+    ) <span class="kw">as</span> executor:
+        futures = {
+            executor.submit(self.perform_ocr, url): url
+            <span class="kw">for</span> url <span class="kw">in</span> img_urls
+        }
+        <span class="kw">for</span> future <span class="kw">in</span> as_completed(futures):
+            results.append(future.result())
+
+<span class="cm"># Domain-scoped deep crawl</span>
+<span class="kw">if</span> urlparse(full_url).netloc == self.domain:
+    new_links.append(full_url)</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 4 — Email Marketing Automation -->
+    <div class="project-card reverse reveal">
+      <div class="project-number">04</div>
       <div>
         <div class="project-meta">
           <span class="project-type type-python">Python</span>
@@ -285,33 +368,23 @@
           <a href="https://github.com/inbarasan25y-coder/email-marketing-automation" target="_blank" class="project-link primary">View on GitHub ↗</a>
         </div>
       </div>
-      <div class="carousel"
-           data-images='["Sample_of_Automation.PNG","image_4.png","image_9.png","image_10.png","image_11.png","image_12.png","image_13.png"]'
-           data-interval="3000">
-        <div class="carousel-chrome">
-          <span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span>
-          <div class="chrome-bar"></div>
-        </div>
+      <div class="carousel" data-images='["Sample_of_Automation.PNG","image_4.png","image_9.png","image_10.png","image_11.png","image_12.png","image_13.png"]' data-interval="3000">
+        <div class="carousel-chrome"><span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span><div class="chrome-bar"></div></div>
         <div class="carousel-track"></div>
-        <button class="carousel-btn prev">&#8592;</button>
-        <button class="carousel-btn next">&#8594;</button>
-        <div class="carousel-dots"></div>
-        <div class="carousel-counter"></div>
+        <button class="carousel-btn prev">&#8592;</button><button class="carousel-btn next">&#8594;</button>
+        <div class="carousel-dots"></div><div class="carousel-counter"></div>
       </div>
     </div>
 
-    <!--
-      PROJECT 3 — Email Verification Tool v9.0
-      ✅ Images: image_5.png | image_6.png | image_7.png | image_8.png
-    -->
+    <!-- PROJECT 5 — Email Verification -->
     <div class="project-card reveal">
-      <div class="project-number">03</div>
+      <div class="project-number">05</div>
       <div>
         <div class="project-meta">
           <span class="project-type type-python">Python</span>
           <span class="project-year">2025</span>
         </div>
-        <h3 class="project-title">Email Verification Tool — v9.0</h3>
+        <h3 class="project-title">GrandmasterEngine — Email Verifier v9.0</h3>
         <p class="project-desc">Multi-layer verification engine with 90% accuracy. Detects catch-all domains, 50+ email providers, 30+ security gateways (Mimecast, Proofpoint, Barracuda), and analyzes SPF/DMARC records — same approach used by ZeroBounce and Hunter.io.</p>
         <div class="project-stack">
           <span class="stack-tag">Python 3</span><span class="stack-tag">dns.resolver</span><span class="stack-tag">smtplib</span><span class="stack-tag">threading</span><span class="stack-tag">dataclasses</span><span class="stack-tag">RegEx</span><span class="stack-tag">SPF/DMARC</span>
@@ -320,18 +393,11 @@
           <a href="https://github.com/inbarasan25y-coder/email-verification-tool" target="_blank" class="project-link primary">View on GitHub ↗</a>
         </div>
       </div>
-      <div class="carousel"
-           data-images='["image_5.png","image_6.png","image_7.png","image_8.png"]'
-           data-interval="4000">
-        <div class="carousel-chrome">
-          <span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span>
-          <div class="chrome-bar"></div>
-        </div>
+      <div class="carousel" data-images='["image_5.png","image_6.png","image_7.png","image_8.png"]' data-interval="4000">
+        <div class="carousel-chrome"><span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span><div class="chrome-bar"></div></div>
         <div class="carousel-track"></div>
-        <button class="carousel-btn prev">&#8592;</button>
-        <button class="carousel-btn next">&#8594;</button>
-        <div class="carousel-dots"></div>
-        <div class="carousel-counter"></div>
+        <button class="carousel-btn prev">&#8592;</button><button class="carousel-btn next">&#8594;</button>
+        <div class="carousel-dots"></div><div class="carousel-counter"></div>
       </div>
     </div>
 
@@ -343,12 +409,14 @@
   <div class="section-label">Expertise</div>
   <h2 class="section-title">Skills</h2>
   <div class="skills-grid">
+    <div class="skill-item reveal"><div class="skill-icon">🐍</div><div class="skill-name">Python</div><div class="skill-level"><div class="skill-bar" style="width:92%"></div></div><div class="skill-desc">asyncio, aiohttp, threading, SMTP, DNS, Selenium, scikit-learn, Pandas</div></div>
+    <div class="skill-item reveal"><div class="skill-icon">☕</div><div class="skill-name">Java</div><div class="skill-level"><div class="skill-bar" style="width:72%"></div></div><div class="skill-desc">OOP, Collections, Exception Handling, File I/O, Interfaces, Algorithms</div></div>
     <div class="skill-item reveal"><div class="skill-icon">⚛️</div><div class="skill-name">React</div><div class="skill-level"><div class="skill-bar" style="width:88%"></div></div><div class="skill-desc">Hooks, state, virtual lists, rich editors, custom components</div></div>
     <div class="skill-item reveal"><div class="skill-icon">🟢</div><div class="skill-name">Node.js</div><div class="skill-level"><div class="skill-bar" style="width:85%"></div></div><div class="skill-desc">Express REST APIs, IMAP/SMTP, async/await, encryption</div></div>
     <div class="skill-item reveal"><div class="skill-icon">🖥️</div><div class="skill-name">Electron</div><div class="skill-level"><div class="skill-bar" style="width:82%"></div></div><div class="skill-desc">Desktop app packaging, IPC, OS Keychain, auto-updater</div></div>
-    <div class="skill-item reveal"><div class="skill-icon">🐍</div><div class="skill-name">Python</div><div class="skill-level"><div class="skill-bar" style="width:90%"></div></div><div class="skill-desc">Threading, SMTP, DNS, dataclasses, CSV automation</div></div>
-    <div class="skill-item reveal"><div class="skill-icon">🗄️</div><div class="skill-name">SQLite</div><div class="skill-level"><div class="skill-bar" style="width:80%"></div></div><div class="skill-desc">better-sqlite3, schema design, encrypted storage</div></div>
-    <div class="skill-item reveal"><div class="skill-icon">🔒</div><div class="skill-name">Security</div><div class="skill-level"><div class="skill-bar" style="width:75%"></div></div><div class="skill-desc">AES-256-GCM, safeStorage, SPF/DMARC, SMTP auth</div></div>
+    <div class="skill-item reveal"><div class="skill-icon">🗄️</div><div class="skill-name">SQLite</div><div class="skill-level"><div class="skill-bar" style="width:80%"></div></div><div class="skill-desc">better-sqlite3, WAL mode, schema design, encrypted storage</div></div>
+    <div class="skill-item reveal"><div class="skill-icon">🤖</div><div class="skill-name">ML / Data</div><div class="skill-level"><div class="skill-bar" style="width:70%"></div></div><div class="skill-desc">scikit-learn, GradientBoosting, Pandas, NumPy, feature engineering</div></div>
+    <div class="skill-item reveal"><div class="skill-icon">🔒</div><div class="skill-name">Security</div><div class="skill-level"><div class="skill-bar" style="width:75%"></div></div><div class="skill-desc">AES-256-GCM, safeStorage, SPF/DMARC, SMTP auth, dnspython</div></div>
   </div>
 </section>
 
@@ -358,15 +426,16 @@
   <h2 class="section-title">About Me</h2>
   <div class="about-grid">
     <div class="about-text reveal">
-      <p>I'm a <strong>self-taught full-stack developer</strong> from Bangalore with a B.Sc. in Computer Science. I build real production tools — not tutorial projects.</p>
-      <p>My approach: <span class="highlight">concept to working product, independently.</span> I've built a desktop email client used in live campaigns, a bulk mailer that sent thousands of real emails, and a verification engine that rivals commercial tools.</p>
+      <p>I'm a <strong>Python & Java developer</strong> from Bangalore with a B.Sc. in Computer Science. I build real production tools — not tutorial projects.</p>
+      <p>My approach: <span class="highlight">concept to working product, independently.</span> I've built a desktop email client used in live campaigns, a bulk mailer that sent thousands of real emails, a verification engine rivalling ZeroBounce, and async scrapers with ML-based data extraction.</p>
       <p>I work fast, learn from real errors, and ship things that actually work in production. I'm looking for a team where I can <strong>grow from self-learning into professional engineering.</strong></p>
     </div>
     <div class="about-card reveal">
       <div class="about-card-title">What I bring</div>
       <ul class="about-list">
-        <li>3 real production tools — not tutorials</li>
-        <li>Full-stack: Python + Node.js + React + Electron</li>
+        <li>5 real production tools — not tutorials</li>
+        <li>Python + Java + Node.js + React + Electron</li>
+        <li>Async scraping with ML-based extraction</li>
         <li>Business outcome focus — tools closed real deals</li>
         <li>AI-assisted development & prompt engineering</li>
         <li>Fast self-learner — concept to product solo</li>
@@ -403,101 +472,55 @@
 </footer>
 
 <script>
-/* ════════════════════════════════════════════
-   CAROUSEL ENGINE — data-driven, zero dependencies
-════════════════════════════════════════════ */
 function initCarousel(el) {
-  const images   = JSON.parse(el.dataset.images);
+  const images = JSON.parse(el.dataset.images);
   const interval = parseInt(el.dataset.interval) || 3500;
-  const track    = el.querySelector('.carousel-track');
+  const track = el.querySelector('.carousel-track');
   const dotsWrap = el.querySelector('.carousel-dots');
-  const counter  = el.querySelector('.carousel-counter');
-  const btnPrev  = el.querySelector('.carousel-btn.prev');
-  const btnNext  = el.querySelector('.carousel-btn.next');
+  const counter = el.querySelector('.carousel-counter');
+  const btnPrev = el.querySelector('.carousel-btn.prev');
+  const btnNext = el.querySelector('.carousel-btn.next');
+  let current = 0, timer = null, startX = 0;
 
-  let current  = 0;
-  let timer    = null;
-  let startX   = 0;
-
-  // ── Build slides ──────────────────────────
   images.forEach((src, i) => {
     const slide = document.createElement('div');
     slide.className = 'carousel-slide';
     const img = document.createElement('img');
-    img.src     = src;
-    img.alt     = `Screenshot ${i + 1}`;
-    img.loading = i === 0 ? 'eager' : 'lazy';
-    slide.appendChild(img);
-    track.appendChild(slide);
+    img.src = src; img.alt = `Screenshot ${i+1}`; img.loading = i === 0 ? 'eager' : 'lazy';
+    slide.appendChild(img); track.appendChild(slide);
   });
-
-  // ── Build dots ────────────────────────────
   images.forEach((_, i) => {
     const dot = document.createElement('button');
     dot.className = 'dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(dot);
+    dot.addEventListener('click', () => goTo(i)); dotsWrap.appendChild(dot);
   });
-
-  // ── Update UI ─────────────────────────────
   function updateUI() {
     track.style.transform = `translateX(-${current * 100}%)`;
-    dotsWrap.querySelectorAll('.dot').forEach((d, i) =>
-      d.classList.toggle('active', i === current)
-    );
+    dotsWrap.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
     counter.textContent = `${current + 1} / ${images.length}`;
   }
-
-  // ── Navigation ────────────────────────────
-  function goTo(idx) {
-    current = (idx + images.length) % images.length;
-    updateUI();
-    resetTimer();
-  }
+  function goTo(idx) { current = (idx + images.length) % images.length; updateUI(); resetTimer(); }
   const next = () => goTo(current + 1);
   const prev = () => goTo(current - 1);
-
-  // ── Auto-play ─────────────────────────────
   const startTimer = () => { timer = setInterval(next, interval); };
   const resetTimer = () => { clearInterval(timer); startTimer(); };
-
-  btnNext.addEventListener('click', next);
-  btnPrev.addEventListener('click', prev);
-
-  // Pause on hover
+  btnNext.addEventListener('click', next); btnPrev.addEventListener('click', prev);
   el.addEventListener('mouseenter', () => clearInterval(timer));
-  el.addEventListener('mouseleave',  startTimer);
-
-  // Touch swipe
+  el.addEventListener('mouseleave', startTimer);
   el.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-  el.addEventListener('touchend',   e => {
-    const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
-  });
-
-  // Keyboard (when focused)
+  el.addEventListener('touchend', e => { const diff = startX - e.changedTouches[0].clientX; if (Math.abs(diff) > 40) diff > 0 ? next() : prev(); });
   el.setAttribute('tabindex', '0');
-  el.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') next();
-    if (e.key === 'ArrowLeft')  prev();
-  });
-
-  updateUI();
-  startTimer();
+  el.addEventListener('keydown', e => { if (e.key === 'ArrowRight') next(); if (e.key === 'ArrowLeft') prev(); });
+  updateUI(); startTimer();
 }
-
 document.querySelectorAll('.carousel').forEach(initCarousel);
 
-/* ════════════════════════════════════════════
-   CUSTOM CURSOR
-════════════════════════════════════════════ */
-const cursor     = document.getElementById('cursor');
+const cursor = document.getElementById('cursor');
 const cursorRing = document.getElementById('cursorRing');
 let mx = 0, my = 0, rx = 0, ry = 0;
 document.addEventListener('mousemove', e => {
   mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top  = my + 'px';
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
 });
 (function animRing() {
   rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
@@ -505,21 +528,10 @@ document.addEventListener('mousemove', e => {
   requestAnimationFrame(animRing);
 })();
 document.querySelectorAll('a, button').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.transform  = 'translate(-50%,-50%) scale(2)';
-    cursor.style.background = 'transparent';
-    cursor.style.border     = '1.5px solid var(--accent)';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.transform  = 'translate(-50%,-50%) scale(1)';
-    cursor.style.background = 'var(--accent)';
-    cursor.style.border     = 'none';
-  });
+  el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2)'; cursor.style.background = 'transparent'; cursor.style.border = '1.5px solid var(--accent)'; });
+  el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; cursor.style.background = 'var(--accent)'; cursor.style.border = 'none'; });
 });
 
-/* ════════════════════════════════════════════
-   NAV / SCROLL / REVEAL
-════════════════════════════════════════════ */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
 
