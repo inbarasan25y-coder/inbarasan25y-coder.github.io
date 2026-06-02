@@ -229,129 +229,7 @@
   <h2 class="section-title">Selected<br>Projects</h2>
   <div class="projects-grid">
 
-    <!-- PROJECT 1 — MailOS -->
-    <div class="project-card reveal">
-      <div class="project-number">01</div>
-      <div>
-        <div class="project-meta">
-          <span class="project-type type-electron">Electron + React</span>
-          <span class="project-type type-desktop">Desktop App</span>
-          <span class="project-year">2025–26</span>
-        </div>
-        <h3 class="project-title">MailOS — Desktop Email Client</h3>
-        <p class="project-desc">Full-stack desktop email client built with the same architecture as VS Code, Slack, and Notion. Multi-account IMAP sync, rich HTML composer, campaign manager, and AES-256-GCM encryption via OS Keychain — all packaged as a Windows installer.</p>
-        <div class="project-stack">
-          <span class="stack-tag">React 18</span><span class="stack-tag">Electron 30</span><span class="stack-tag">Node.js</span><span class="stack-tag">Express</span><span class="stack-tag">SQLite</span><span class="stack-tag">IMAP</span><span class="stack-tag">Nodemailer</span><span class="stack-tag">AES-256-GCM</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/inbarasan25y-coder/mailos-desktop" target="_blank" class="project-link primary">View on GitHub ↗</a>
-        </div>
-      </div>
-      <div class="carousel" data-images='["image_1.png","image_2.png","image_3.png"]' data-interval="3500">
-        <div class="carousel-chrome"><span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span><div class="chrome-bar"></div></div>
-        <div class="carousel-track"></div>
-        <button class="carousel-btn prev">&#8592;</button><button class="carousel-btn next">&#8594;</button>
-        <div class="carousel-dots"></div><div class="carousel-counter"></div>
-      </div>
-    </div>
-
-    <!-- PROJECT 2 — CompleteIntelligentExtractor -->
-    <div class="project-card reverse reveal">
-      <div class="project-number">02</div>
-      <div>
-        <div class="project-meta">
-          <span class="project-type type-python">Python</span>
-          <span class="project-type type-ml">ML · asyncio</span>
-          <span class="project-year">2024–25</span>
-        </div>
-        <h3 class="project-title">CompleteIntelligentExtractor</h3>
-        <p class="project-desc">Async web scraper with 100-worker concurrency (aiohttp + asyncio), 7 domain extraction methods, RFC-compliant email validation, and scikit-learn GradientBoostingClassifier for ML-based company name detection. Classifies every domain as unique vs common using exact-match pattern sets — preventing false positives like <code style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:12px">x.com</code> matching <code style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:12px">vertix.com</code>.</p>
-        <div class="project-stack">
-          <span class="stack-tag">Python 3</span><span class="stack-tag">aiohttp</span><span class="stack-tag">asyncio</span><span class="stack-tag">BeautifulSoup4</span><span class="stack-tag">scikit-learn</span><span class="stack-tag">Pandas</span><span class="stack-tag">Regex</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/inbarasan25y-coder/complete-intelligent-extractor" target="_blank" class="project-link primary">View on GitHub ↗</a>
-        </div>
-      </div>
-      <!-- Animated code preview panel -->
-      <div class="code-preview">
-        <div class="code-chrome"><span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span><span class="fname">complete_intelligent_extractor.py</span></div>
-        <div class="code-body">
-<pre class="code-lines"><span class="cm"># 100-worker async scraper + ML</span>
-<span class="kw">async def</span> <span class="fn">extract_from_urls_batch</span>(self, urls):
-    semaphore = asyncio.Semaphore(<span class="nm">100</span>)
-    <span class="kw">async with</span> aiohttp.ClientSession() <span class="kw">as</span> session:
-        tasks = [self.fetch_url_async(
-            session, url, semaphore
-        ) <span class="kw">for</span> url <span class="kw">in</span> urls]
-        results = <span class="kw">await</span> asyncio.gather(*tasks)
-
-<span class="cm"># Exact-match domain classifier</span>
-<span class="kw">def</span> <span class="fn">is_exact_common_domain</span>(self, domain, exact_set):
-    <span class="kw">for</span> pattern <span class="kw">in</span> exact_set:
-        <span class="kw">if</span> domain == pattern:        <span class="cm"># exact ✅</span>
-            <span class="kw">return</span> <span class="py">True</span>
-        <span class="kw">if</span> domain.endswith(<span class="st">'.'</span>+pattern): <span class="cm"># subdomain ✅</span>
-            <span class="kw">return</span> <span class="py">True</span>
-    <span class="kw">return</span> <span class="py">False</span>  <span class="cm"># 'x.com' in 'vertix.com' → blocked</span>
-
-<span class="cm"># ML company name detection</span>
-<span class="fn">GradientBoostingClassifier</span>(
-    n_estimators=<span class="nm">100</span>, max_depth=<span class="nm">4</span>
-).fit(X_features, y_labels)</pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 3 — BulletproofScraper -->
-    <div class="project-card reveal">
-      <div class="project-number">03</div>
-      <div>
-        <div class="project-meta">
-          <span class="project-type type-python">Python</span>
-          <span class="project-type type-desktop">Selenium · OCR</span>
-          <span class="project-year">2024</span>
-        </div>
-        <h3 class="project-title">BulletproofScraper</h3>
-        <p class="project-desc">Production web scraper for JavaScript-rendered sites that block simple HTTP scrapers. Launches headless Chrome via Selenium WebDriver, uses smart <code style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:12px">document.readyState</code> detection instead of fixed sleeps, and runs pytesseract OCR on all page images in parallel via <code style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:12px">ThreadPoolExecutor</code>. Deep domain-scoped crawl via urljoin/urlparse.</p>
-        <div class="project-stack">
-          <span class="stack-tag">Python 3</span><span class="stack-tag">Selenium</span><span class="stack-tag">pytesseract</span><span class="stack-tag">Pillow</span><span class="stack-tag">ThreadPoolExecutor</span><span class="stack-tag">BeautifulSoup</span><span class="stack-tag">Pandas</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/inbarasan25y-coder/BulletproofScraper" target="_blank" class="project-link primary">View on GitHub ↗</a>
-        </div>
-      </div>
-      <div class="code-preview">
-        <div class="code-chrome"><span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span><span class="fname">bulletproof_scraper.py</span></div>
-        <div class="code-body">
-<pre class="code-lines"><span class="cm"># Smart wait — no fixed sleep(7)</span>
-<span class="kw">def</span> <span class="fn">wait_for_page</span>(self, timeout=<span class="nm">5</span>):
-    WebDriverWait(self.driver, timeout).until(
-        <span class="kw">lambda</span> d: d.execute_script(
-            <span class="st">"return document.readyState"</span>
-        ) == <span class="st">"complete"</span>
-    )
-
-<span class="cm"># Parallel OCR on all images</span>
-<span class="kw">def</span> <span class="fn">perform_ocr_batch</span>(self, img_urls):
-    <span class="kw">with</span> ThreadPoolExecutor(
-        max_workers=self.max_workers
-    ) <span class="kw">as</span> executor:
-        futures = {
-            executor.submit(self.perform_ocr, url): url
-            <span class="kw">for</span> url <span class="kw">in</span> img_urls
-        }
-        <span class="kw">for</span> future <span class="kw">in</span> as_completed(futures):
-            results.append(future.result())
-
-<span class="cm"># Domain-scoped deep crawl</span>
-<span class="kw">if</span> urlparse(full_url).netloc == self.domain:
-    new_links.append(full_url)</pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 4 — Email Marketing Automation -->
+    <!-- PROJECT 1 — Email Marketing Automation -->
     <div class="project-card reverse reveal">
       <div class="project-number">04</div>
       <div>
@@ -375,8 +253,8 @@
         <div class="carousel-dots"></div><div class="carousel-counter"></div>
       </div>
     </div>
-
-    <!-- PROJECT 5 — Email Verification -->
+    
+    <!-- PROJECT 2 — Email Verification -->
     <div class="project-card reveal">
       <div class="project-number">05</div>
       <div>
@@ -403,6 +281,131 @@
 
   </div>
 </section>
+
+    <!-- PROJECT 3 — MailOS -->
+
+    <div class="project-card reveal">
+      <div class="project-number">01</div>
+      <div>
+        <div class="project-meta">
+          <span class="project-type type-electron">Electron + React</span>
+          <span class="project-type type-desktop">Desktop App</span>
+          <span class="project-year">2026 - Mar-May</span>
+        </div>
+        <h3 class="project-title">MailOS — Desktop Email Client</h3>
+        <p class="project-desc">Full-stack desktop email client built with the same architecture as VS Code, Slack, and Notion. Multi-account IMAP sync, rich HTML composer, campaign manager, and AES-256-GCM encryption via OS Keychain — all packaged as a Windows installer.</p>
+        <div class="project-stack">
+          <span class="stack-tag">React 18</span><span class="stack-tag">Electron 30</span><span class="stack-tag">Node.js</span><span class="stack-tag">Express</span><span class="stack-tag">SQLite</span><span class="stack-tag">IMAP</span><span class="stack-tag">Nodemailer</span><span class="stack-tag">AES-256-GCM</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/inbarasan25y-coder/mailos-desktop" target="_blank" class="project-link primary">View on GitHub ↗</a>
+        </div>
+      </div>
+      <div class="carousel" data-images='["image_1.png","image_2.png","image_3.png"]' data-interval="3500">
+        <div class="carousel-chrome"><span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span><div class="chrome-bar"></div></div>
+        <div class="carousel-track"></div>
+        <button class="carousel-btn prev">&#8592;</button><button class="carousel-btn next">&#8594;</button>
+        <div class="carousel-dots"></div><div class="carousel-counter"></div>
+      </div>
+    </div>
+
+    <!-- PROJECT 4 — CompleteIntelligentExtractor -->
+
+         <div class="project-card reverse reveal">
+      <div class="project-number">02</div>
+      <div>
+        <div class="project-meta">
+          <span class="project-type type-python">Python</span>
+          <span class="project-type type-ml">ML · asyncio</span>
+          <span class="project-year">2026</span>
+        </div>
+        <h3 class="project-title">CompleteIntelligentExtractor</h3>
+        <p class="project-desc">Async web scraper with 100-worker concurrency (aiohttp + asyncio), 7 domain extraction methods, RFC-compliant email validation, and scikit-learn GradientBoostingClassifier for ML-based company name detection. Classifies every domain as unique vs common using exact-match pattern sets — preventing false positives like <code style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:12px">x.com</code> matching <code style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:12px">vertix.com</code>.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Python 3</span><span class="stack-tag">aiohttp</span><span class="stack-tag">asyncio</span><span class="stack-tag">BeautifulSoup4</span><span class="stack-tag">scikit-learn</span><span class="stack-tag">Pandas</span><span class="stack-tag">Regex</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/inbarasan25y-coder/complete-intelligent-extractor" target="_blank" class="project-link primary">View on GitHub ↗</a>
+        </div>
+      </div>
+      <!-- Animated code preview panel -->
+      <div class="code-preview">
+        <div class="code-chrome"><span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span><span class="fname">complete_intelligent_extractor.py</span></div>
+        <div class="code-body">
+        <pre class="code-lines"><span class="cm"># 100-worker async scraper + ML</span>
+        <span class="kw">async def</span> <span class="fn">extract_from_urls_batch</span>(self, urls):
+            semaphore = asyncio.Semaphore(<span class="nm">100</span>)
+            <span class="kw">async with</span> aiohttp.ClientSession() <span class="kw">as</span> session:
+                tasks = [self.fetch_url_async(
+                    session, url, semaphore
+                ) <span class="kw">for</span> url <span class="kw">in</span> urls]
+                results = <span class="kw">await</span> asyncio.gather(*tasks)
+
+        <span class="cm"># Exact-match domain classifier</span>
+        <span class="kw">def</span> <span class="fn">is_exact_common_domain</span>(self, domain, exact_set):
+            <span class="kw">for</span> pattern <span class="kw">in</span> exact_set:
+                <span class="kw">if</span> domain == pattern:        <span class="cm"># exact ✅</span>
+                    <span class="kw">return</span> <span class="py">True</span>
+                <span class="kw">if</span> domain.endswith(<span class="st">'.'</span>+pattern): <span class="cm"># subdomain ✅</span>
+                    <span class="kw">return</span> <span class="py">True</span>
+            <span class="kw">return</span> <span class="py">False</span>  <span class="cm"># 'x.com' in 'vertix.com' → blocked</span>
+
+        <span class="cm"># ML company name detection</span>
+        <span class="fn">GradientBoostingClassifier</span>(
+            n_estimators=<span class="nm">100</span>, max_depth=<span class="nm">4</span>
+        ).fit(X_features, y_labels)</pre>
+        </div>
+      </div>
+    </div>
+
+        <!-- PROJECT 5 — BulletproofScraper -->
+             <div class="project-card reveal">
+              <div class="project-number">03</div>
+              <div>
+                <div class="project-meta">
+                 <span class="project-type type-python">Python</span>
+                  <span class="project-type type-desktop">Selenium · OCR</span>
+                  <span class="project-year">2026</span>
+                </div>
+                <h3 class="project-title">BulletproofScraper</h3>
+                <p class="project-desc">Production web scraper for JavaScript-rendered sites that block simple HTTP scrapers. Launches headless Chrome via Selenium WebDriver, uses smart <code style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:12px">document.readyState</code> detection instead of fixed sleeps, and runs pytesseract OCR on all page images in parallel via <code style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:12px">ThreadPoolExecutor</code>. Deep domain-scoped crawl via urljoin/urlparse.</p>
+                <div class="project-stack">
+                  <span class="stack-tag">Python 3</span><span class="stack-tag">Selenium</span><span class="stack-tag">pytesseract</span><span class="stack-tag">Pillow</span><span class="stack-tag">ThreadPoolExecutor</span><span class="stack-tag">BeautifulSoup</span><span class="stack-tag">Pandas</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/inbarasan25y-coder/BulletproofScraper" target="_blank" class="project-link primary">View on GitHub ↗</a>
+                </div>
+              </div>
+              <div class="code-preview">
+                <div class="code-chrome"><span class="chrome-dot r"></span><span class="chrome-dot y"></span><span class="chrome-dot g"></span><span class="fname">bulletproof_scraper.py</span></div>
+                <div class="code-body">
+        <pre class="code-lines"><span class="cm"># Smart wait — no fixed sleep(7)</span>
+        <span class="kw">def</span> <span class="fn">wait_for_page</span>(self, timeout=<span class="nm">5</span>):
+           WebDriverWait(self.driver, timeout).until(
+                <span class="kw">lambda</span> d: d.execute_script(
+                    <span class="st">"return document.readyState"</span>
+                ) == <span class="st">"complete"</span>
+            )
+
+        <span class="cm"># Parallel OCR on all images</span>
+        <span class="kw">def</span> <span class="fn">perform_ocr_batch</span>(self, img_urls):
+            <span class="kw">with</span> ThreadPoolExecutor(
+                max_workers=self.max_workers
+            ) <span class="kw">as</span> executor:
+        futures = {
+                    executor.submit(self.perform_ocr, url): url
+                    <span class="kw">for</span> url <span class="kw">in</span> img_urls
+                }
+                <span class="kw">for</span> future <span class="kw">in</span> as_completed(futures):
+                    results.append(future.result())
+
+        <span class="cm"># Domain-scoped deep crawl</span>
+        <span class="kw">if</span> urlparse(full_url).netloc == self.domain:
+            new_links.append(full_url)</pre>
+                </div>
+              </div>
+            </div>
+
 
 <!-- SKILLS -->
 <section id="skills" class="skills-section">
